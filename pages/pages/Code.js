@@ -26,14 +26,14 @@ function MultilineTextFields(props) {
         id="outlined-multiline-static"
         label={props.label}
         multiline
-        rows={30}
-        style ={{width:700, backgroundColor: 'white'}}
+        rows={20}
+        style ={{width:500, backgroundColor: 'white'}}
         defaultValue="Default Value"
         variant="outlined"
         value={value}
         onChange={handleChange}
         inputProps={{
-          maxLength: 4000,
+          maxLength: 6000,
         }}
        
       />
@@ -49,13 +49,13 @@ function MultilineTextFields2(props) {
         id="outlined-multiline-static"
         label={props.label}
         multiline
-        rows={30}
-        style ={{width:700, backgroundColor: 'white'}}
+        rows={20}
+        style ={{width:500, backgroundColor: 'white'}}
         defaultValue="Default Value"
         variant="outlined"
         value={props.value}
         inputProps={{
-          maxLength: 4000,
+          maxLength: 6000,
         }}
        
       />
@@ -65,14 +65,41 @@ function MultilineTextFields2(props) {
 
 
 
+
+
 function Form() {
-    const [data, setData] = React.useState('');
+    const [data3, setData] = React.useState('');
     const [data2, setData2] = React.useState('');
     const handleCallback = (childData) =>{
        setData(childData);
     }
-    const handleClick = ()=>{
-      setData2(data)
+    const handleClick = async ()=>{
+      const url = 'https://360b-34-91-245-7.ngrok-free.app/api/generate'; // replace with your API endpoint
+      
+      const data = {
+  "model": "llama3",
+  "prompt": "Please find any space and time optimization possible in the following springboot java code: "+data3+" Also please mention where should I use input size restriction as the code(with variable names to be restricted) is going to production environment, please check all the loops for space and time optimization also any uncatched error ",
+  "stream":false
+};// replace with your data
+
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const json = await response.json();
+      setData2(json.response); // process your response here
+    } catch (error) {
+      console.error('There was a problem with the fetch operation: ', error);
+    }
     }
     return (
         
@@ -88,7 +115,11 @@ function Form() {
                   <MultilineTextFields parentCallback={handleCallback} label="Paste java code here"/>
                   <Button onClick={handleClick} variant="contained" color="primary">Let's Go</Button>
                 </Stack>
+                
+                <Stack spacing={2}>
                 <MultilineTextFields2 value={data2} label="Response" />
+                <Button href="/" variant="contained" color="primary">Go to home</Button>
+                </Stack>
             </Stack>
             
         </Box>

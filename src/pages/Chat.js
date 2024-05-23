@@ -74,7 +74,7 @@ function Form() {
        setData(childData);
     }
     const handleClick = async ()=>{
-      const url = 'https://360b-34-91-245-7.ngrok-free.app/api/generate'; // replace with your API endpoint
+      const url = 'http://localhost:11434/api/generate'; // replace with your API endpoint
       console.log(data3)
       const data = {
   "model": "llama3",

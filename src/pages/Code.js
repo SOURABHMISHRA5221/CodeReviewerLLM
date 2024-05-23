@@ -74,11 +74,11 @@ function Form() {
        setData(childData);
     }
     const handleClick = async ()=>{
-      const url = 'https://360b-34-91-245-7.ngrok-free.app/api/generate'; // replace with your API endpoint
+      const url = 'http://localhost:11434/api/generate'; // replace with your API endpoint
       
       const data = {
   "model": "llama3",
-  "prompt": "Please find any space and time optimization possible in the following springboot java code: "+data3+" Also please mention where should I use input size restriction as the code(with variable names to be restricted) is going to production environment, please check all the loops for space and time optimization also any uncatched error ",
+  "prompt": "Please find any space and time optimization possible in the following java code: "+data3+" Also please mention where should I use input size restriction as the code(with variable names to be restricted) is going to production environment, please check all the loops for space and time optimization also any uncatched error ",
   "stream":false
 };// replace with your data
 
